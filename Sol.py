@@ -493,4 +493,19 @@ class Solution(object):
         else:
             return ListNode(val = list2.val, next = self.mergeTwoLists(list1, list2.next))
 
+
+
+#50. Pow(x, n)
+class Solution:
+    def myPow(self, x: float, n: int) -> float:
+        def cal(x: float, n: int) -> float:
+            if n == 0:
+                return 1
+            if n % 2 == 0:
+                result = cal(x, n/2)
+                return  result * result
+            else:
+                return x * self.myPow(x, n - 1)
         
+        return cal(x, n) if n > 0 else 1/cal(x, abs(n))
+       
