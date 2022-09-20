@@ -494,7 +494,6 @@ class Solution(object):
             return ListNode(val = list2.val, next = self.mergeTwoLists(list1, list2.next))
 
 
-
 #50. Pow(x, n)
 class Solution:
     def myPow(self, x: float, n: int) -> float:
@@ -509,3 +508,54 @@ class Solution:
         
         return cal(x, n) if n > 0 else 1/cal(x, abs(n))
        
+
+
+#206. Reverse Linked List
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        prev = None
+        test = 0
+        while head:
+            test += 1
+            tmp = head.next
+            head.next = prev
+
+            prev = head
+            head = tmp
+            if test > 100:
+                print("wrong")
+                break
+        return prev
+        
+
+
+
+#143. Reorder List (not yet finish)
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reorderList(self, head) -> None:
+        """
+        Do not return anything, modify head in-place instead.
+        """
+        def helper(head):
+            if head.next == None:
+                pass
+            else:
+                tmp = head.val
+                tmp2 = helper(head.next)
+                head.val = tmp2.val
+                tmp2.val = tmp
+        helper(head)
+
+
+
+        
