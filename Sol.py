@@ -478,6 +478,11 @@ class MyStack(object):
 
 #21. Merge Two Sorted Lists
 # Definition for singly-linked list.
+from collections import deque
+from ctypes import sizeof
+from typing import Counter
+
+
 class ListNode(object):
     def __init__(self, val=0, next=None):
         self.val = val
@@ -575,32 +580,22 @@ class Solution:
         return head
                 
 
-#(not yet finish)
+
 #160. Intersection of Two Linked Lists
 class Solution:
-    def Reverse(self, head):
-        prev = None
-        while head:
-            tmp = head.next
-            head.next = prev
-            prev = head
-            head = tmp
-        return head
-
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
-        headA = self.Reverse(headA)
-        headB = self.Reverse(headB)
-        result = None
-        cA, cB = headA, headB
-        pA, pB = None, None
-        while cA == cB:
-            pA, pB = cA, cB
-            cA, cB = cA.next, cB.next
-        return pA
-            
-            
-
-
+        c = headA
+        setA = set()
+        while c:
+            setA.add(c)
+            c = c.next
+        
+        c = headB
+        while c:
+            if c in setA:
+                return c
+            c = c.next
+        return None         
 
 
 
