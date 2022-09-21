@@ -540,7 +540,7 @@ class Solution:
 # class ListNode:
 #     def __init__(self, val=0, next=None):
 #         self.val = val
-#         self.next = next
+         self.next = next
 class Solution:
     def reorderList(self, head) -> None:
         """
@@ -558,4 +558,24 @@ class Solution:
 
 
 
-        
+#203. Remove Linked List Elements       
+class Solution:
+    def removeElements(self, head: Optional[ListNode], val: int) -> Optional[ListNode]:
+        current = head
+        prev = None
+        while current:
+            if current.val == val:
+                current = current.next
+                if prev == None:
+                    head = current
+                else:
+                    prev.next = current
+            else:
+                prev = current
+                current = current.next
+        return head
+                
+            
+                
+
+
