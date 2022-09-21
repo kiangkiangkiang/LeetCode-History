@@ -537,10 +537,10 @@ class Solution:
 
 #143. Reorder List (not yet finish)
 # Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-         self.next = next
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
 class Solution:
     def reorderList(self, head) -> None:
         """
@@ -576,6 +576,4 @@ class Solution:
         return head
                 
             
-                
-
 
