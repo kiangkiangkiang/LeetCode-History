@@ -534,7 +534,6 @@ class Solution:
         
 
 
-
 #143. Reorder List (not yet finish)
 # Definition for singly-linked list.
 class ListNode:
@@ -575,5 +574,33 @@ class Solution:
                 current = current.next
         return head
                 
+
+#(not yet finish)
+#160. Intersection of Two Linked Lists
+class Solution:
+    def Reverse(self, head):
+        prev = None
+        while head:
+            tmp = head.next
+            head.next = prev
+            prev = head
+            head = tmp
+        return head
+
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+        headA = self.Reverse(headA)
+        headB = self.Reverse(headB)
+        result = None
+        cA, cB = headA, headB
+        pA, pB = None, None
+        while cA == cB:
+            pA, pB = cA, cB
+            cA, cB = cA.next, cB.next
+        return pA
             
+            
+
+
+
+
 
