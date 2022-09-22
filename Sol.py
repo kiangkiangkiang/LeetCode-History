@@ -479,9 +479,7 @@ class MyStack(object):
 #21. Merge Two Sorted Lists
 # Definition for singly-linked list.
 from collections import deque
-from ctypes import sizeof
 from typing import Counter
-from xml.dom.pulldom import END_DOCUMENT
 
 
 class ListNode(object):
@@ -627,17 +625,85 @@ class Solution:
 #11. Container With Most Water
 class Solution:
     def maxArea(self, height: List[int]) -> int:
+        right = len(height) - 1
+        left = 0
         maximum = 0
-        n = len(height)
-        maxHeight = max(height)
-        for start in range(n):
-            if maximum/(n - start) > maxHeight: break
-            for end in reversed(range(n)):
-                if maximum/(end - start) > maxHeight: break
-                currentArea = (end - start) * height[start] if height[start] < height[end] else (end - start) * height[end]
-                maximum = currentArea if currentArea > maximum else maximum
+        while left < right:
+            h = min(height[left], height[right])
+            maximum = max((right - left) * h, maximum)
+            if height[left] > height[right]:
+                right -= 1
+            else:
+                left += 1
         return maximum
 
 
-s =  ["a","b","c","d"]
-dict(enumerate(s))
+
+#(not yet finish)
+#15. 3Sum
+class Solution:
+    def threeSum(self, nums: list[int]) -> list[list[int]]:
+        nums.sort()
+        ans = []
+        def helper(nums):
+            n = len(nums)
+            start = 0
+            end = n-1
+            current = nums[start] + nums[end]
+            if end - start <=1:
+                return
+            if -1*current in nums[(start+1):end]:
+                 if [-1*current, nums[start], nums[end]] not in ans: ans.append([-1*current, nums[start], nums[end]])
+            else:
+                if -1*current < min(nums[(start+1):end]):
+                    helper(nums[(start+1):(end+1)])
+                if -1*current > max(nums[(start+1):end]):
+                    helper(nums[start:end])
+            helper(nums[(start+1):(end+1)])
+            helper(nums[start:end])
+        helper(nums)
+        return ans
+
+ 
+            
+            
+
+        
+        
+        
+
+        
+
+
+
+                    
+
+                
+                
+
+
+
+#2095. Delete the Middle Node of a Linked List
+class Solution:
+    def deleteMiddle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        slow = head
+        fast = head
+        while fast.next and fast.next.next:
+            slow = slow.next
+            fast = fast.next.next
+        slow.next = slow.next.next
+        return head
+       
+
+
+
+ss=[]
+a = Solution()
+s = a.threeSum([-1,0,1,2,-1,-4])
+s
+[ss.append(i) for i in s if i not in ss]
+ss
+set(s)
+
+a = [0, 1, 2, 2, 2, 5, 9, 19, 56]
+list(map(lambda x:x>5, a))
