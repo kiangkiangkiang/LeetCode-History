@@ -599,3 +599,39 @@ class Solution:
 
 
 
+#1480. Running Sum of 1d Array
+class Solution:
+    def runningSum(self, nums: List[int]) -> List[int]:
+        return [sum(a[:(i+1)]) for i in range(len(a))]
+
+
+
+#724. Find Pivot Index
+class Solution:
+    def pivotIndex(self, nums: list[int]) -> int:
+        n = len(nums)
+
+        def binSearch(start, end, nums):
+            half = int((end-start)/2)
+            leftSum = sum(nums[0:half]) 
+            rightSum = sum(nums[(half+1):(n+1)])
+            if leftSum > rightSum:
+                return binSearch(start, half, nums)
+            elif leftSum < rightSum:
+                return binSearch(half, end, nums)
+            else:
+                return half
+            return -1
+
+        return binSearch(0, n, nums)
+
+
+
+a = Solution()
+ss = [1,4,3,6,10,2,9]
+a.pivotIndex(ss)
+1+1
+
+ss[0:3]
+ss[3:7]
+int((7-7 + 1)/2)
