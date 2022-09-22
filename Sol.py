@@ -481,6 +481,7 @@ class MyStack(object):
 from collections import deque
 from ctypes import sizeof
 from typing import Counter
+from xml.dom.pulldom import END_DOCUMENT
 
 
 class ListNode(object):
@@ -608,30 +609,35 @@ class Solution:
 
 #724. Find Pivot Index
 class Solution:
-    def pivotIndex(self, nums: list[int]) -> int:
+    def pivotIndex(self, nums: list[int], tmp = []) -> int:
+        leftSum = 0
+        rightSum = sum(nums[1::])
         n = len(nums)
-
-        def binSearch(start, end, nums):
-            half = int((end-start)/2)
-            leftSum = sum(nums[0:half]) 
-            rightSum = sum(nums[(half+1):(n+1)])
-            if leftSum > rightSum:
-                return binSearch(start, half, nums)
-            elif leftSum < rightSum:
-                return binSearch(half, end, nums)
+        for i in range(n):
+            if leftSum == rightSum :
+                return i
             else:
-                return half
-            return -1
+                if i == n: return -1 
+                rightSum -= nums[i+1]
+                leftSum += nums[i]
+        return -1
 
-        return binSearch(0, n, nums)
 
 
+#11. Container With Most Water
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        maximum = 0
+        n = len(height)
+        maxHeight = max(height)
+        for start in range(n):
+            if maximum/(n - start) > maxHeight: break
+            for end in reversed(range(n)):
+                if maximum/(end - start) > maxHeight: break
+                currentArea = (end - start) * height[start] if height[start] < height[end] else (end - start) * height[end]
+                maximum = currentArea if currentArea > maximum else maximum
+        return maximum
 
-a = Solution()
-ss = [1,4,3,6,10,2,9]
-a.pivotIndex(ss)
-1+1
 
-ss[0:3]
-ss[3:7]
-int((7-7 + 1)/2)
+s =  ["a","b","c","d"]
+dict(enumerate(s))
