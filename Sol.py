@@ -482,6 +482,7 @@ class MyStack(object):
 #         self.next = next
 #21. Merge Two Sorted Lists
 from collections import deque
+import enum
 
 
 class Solution(object):
@@ -779,4 +780,38 @@ class Solution:
 
    
 
-#178. Rank Scores
+#1093. Statistics from a Large Sample
+class Solution:
+    def sampleStats(self, count: list[int]) -> list[float]:
+        #key -> values: sample -> counts
+        count = Counter(enumerate(count))
+        count = dict(filter(lambda x: x[1] > 0, count))
+        allKeys = list(count.keys())
+        allVals = list(count.values())
+
+        #mean, mode
+        n = sum(allVals)
+        mode = allKeys[allVals.index(max(allVals))]
+        mean = sum([k*v for k, v in zip(allKeys, allVals)])/n
+
+        #median
+        median, k_prev, cumSum = n >> 1, None, 0
+        for k, v in zip(allKeys, allVals):
+            if k_prev is not None:
+                median = (k + k_prev)/2 if n % 2 == 0 else k
+                break
+            if cumSum + v < median:
+                cumSum += v
+            elif cumSum + v > median:
+                median = k
+                break
+            else:
+                k_prev = k
+        #minimum, maximum
+        minimum = float(allKeys[0])
+        maximum = float(allKeys[-1])
+
+        return [minimum, maximum, mean, float(median), float(mode)]
+
+   
+   
