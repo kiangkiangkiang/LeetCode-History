@@ -475,19 +475,12 @@ class MyStack(object):
 
 
 #New Section
-
-#21. Merge Two Sorted Lists
 # Definition for singly-linked list.
-import abc
-from collections import deque
-from curses import A_ALTCHARSET
-from typing import Counter
-
-
-class ListNode(object):
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+#21. Merge Two Sorted Lists
 class Solution(object):
     def mergeTwoLists(self, list1, list2):
         if list1 == None:
@@ -498,6 +491,7 @@ class Solution(object):
             return ListNode(val = list1.val, next = self.mergeTwoLists(list1.next, list2))
         else:
             return ListNode(val = list2.val, next = self.mergeTwoLists(list1, list2.next))
+
 
 
 #50. Pow(x, n)
@@ -517,11 +511,6 @@ class Solution:
 
 
 #206. Reverse Linked List
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
         prev = None
@@ -541,11 +530,6 @@ class Solution:
 
 
 #143. Reorder List (not yet finish)
-# Definition for singly-linked list.
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
 class Solution:
     def reorderList(self, head) -> None:
         """
@@ -654,7 +638,6 @@ class Solution(object):
             
             
 
-
 #15. 3Sum
 class Solution:
     def threeSum(self, nums: list[int]) -> list[list[int]]:  
@@ -725,4 +708,37 @@ class Solution:
 
 
 #35. Search Insert Position
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        indexList = list(range(len(nums)))
+        half = int(len(nums)/2)
+        while len(nums) > 1:
+            print(nums)
+            if target > nums[half]:
+                nums = nums[half:]
+                indexList = indexList[half:]
+            elif target < nums[half]:
+                nums = nums[:half]
+                indexList = indexList[:half]
+            else:
+                return indexList[half]
+            half = int(len(nums)/2)
+        return indexList[0] if target <= nums[0] else indexList[0] + 1
+           
 
+
+#35. Search Insert Position
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        l, r = 0, len(nums)
+        half = (r + l) >> 1
+        while r - l > 1:
+            if target > nums[half]:
+                l = half
+            elif target < nums[half]:
+                r = half
+            else:
+                return half
+            half = (r + l) >> 1
+        
+        return l if target <= nums[l] else r
