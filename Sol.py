@@ -481,6 +481,9 @@ class MyStack(object):
 #         self.val = val
 #         self.next = next
 #21. Merge Two Sorted Lists
+from collections import deque
+
+
 class Solution(object):
     def mergeTwoLists(self, list1, list2):
         if list1 == None:
@@ -742,3 +745,38 @@ class Solution:
             half = (r + l) >> 1
         
         return l if target <= nums[l] else r
+
+
+
+#1742. Maximum Number of Balls in a Box
+class Solution:
+    def countBalls(self, lowLimit: int, highLimit: int) -> int:
+        ans = []
+        for ball_number in range(lowLimit, highLimit+1):
+            ans.append(sum(map(lambda x: int(x), list(str(ball_number)))))
+        return max(Counter(ans).values())
+
+
+
+#2264. Largest 3-Same-Digit Number in String
+class Solution:
+    def largestGoodInteger(self, num: str) -> str:
+        numMap = Counter(num)
+        numMap = dict(sorted(numMap.items(), key = lambda x:x[0], reverse=True))
+        for k, v in numMap.items():
+            if v < 3:
+                continue
+            else:
+                ans = Counter()
+                test = list(num)
+                for i in range(v):
+                    index = test.index(k)
+                    ans[index] += 1
+                    test.pop(index)
+                if max(ans.values()) >= 3:
+                    return str(k)*3
+        return ""
+
+   
+
+#178. Rank Scores
