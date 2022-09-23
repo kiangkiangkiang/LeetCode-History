@@ -692,20 +692,18 @@ class Solution:
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
         half = int(len(nums) / 2)
-        index = half
+        index = list(range(len(nums)))
         while nums:
-            print(nums)
-            print(index)
             if target > nums[half]:
                 nums = nums[(half+1):]
+                index = index[(half+1):]
                 half = int(len(nums) / 2)
-                index = index + half
             elif target < nums[half]:
                 nums = nums[:half]
+                index = index[:half]
                 half = int(len(nums) / 2)
-                index = index - half
             else:
-                return index
+                return index[half]
         return -1
 
 
