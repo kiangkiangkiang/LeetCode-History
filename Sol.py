@@ -707,3 +707,22 @@ class Solution:
         return -1
 
 
+
+#278. First Bad Version
+class Solution:
+    def firstBadVersion(self, n: int) -> int:
+        half = int(n/2)
+        l, r = 0, n
+        while half > 0:
+            if isBadVersion(half):
+                r = half
+                if r - l <= 1:
+                    return half
+            else:
+                l = half
+            half = int((r + l)/2)
+
+
+
+#35. Search Insert Position
+
