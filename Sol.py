@@ -478,7 +478,9 @@ class MyStack(object):
 
 #21. Merge Two Sorted Lists
 # Definition for singly-linked list.
+import abc
 from collections import deque
+from curses import A_ALTCHARSET
 from typing import Counter
 
 
@@ -639,47 +641,37 @@ class Solution:
 
 
 
-#(not yet finish)
+#1. Two Sum
+class Solution(object):
+    def twoSum(self, nums: list[int], target: int):
+        myHashMap = {}
+        for i, v in enumerate(nums):
+            find = target - v
+            if find in myHashMap:
+                return [myHashMap[find], i]
+            else:
+                myHashMap[v] = i
+            
+            
+
+
 #15. 3Sum
 class Solution:
-    def threeSum(self, nums: list[int]) -> list[list[int]]:
-        nums.sort()
+    def threeSum(self, nums: list[int]) -> list[list[int]]:  
         ans = []
-        def helper(nums):
-            n = len(nums)
-            start = 0
-            end = n-1
-            current = nums[start] + nums[end]
-            if end - start <=1:
-                return
-            if -1*current in nums[(start+1):end]:
-                 if [-1*current, nums[start], nums[end]] not in ans: ans.append([-1*current, nums[start], nums[end]])
-            else:
-                if -1*current < min(nums[(start+1):end]):
-                    helper(nums[(start+1):(end+1)])
-                if -1*current > max(nums[(start+1):end]):
-                    helper(nums[start:end])
-            helper(nums[(start+1):(end+1)])
-            helper(nums[start:end])
-        helper(nums)
+        for t in range(len(nums)-1):
+            target = -1*nums[t]
+            input = nums[(t+1):]
+            myHashMap= {}
+            for i, v in enumerate(input):
+                find = target - v
+                if find in myHashMap:
+                    tmp = sorted([find, v, nums[t]])
+                    if tmp not in ans:
+                        ans.append(tmp)
+                else:
+                    myHashMap[v] = v
         return ans
-
- 
-            
-            
-
-        
-        
-        
-
-        
-
-
-
-                    
-
-                
-                
 
 
 
@@ -695,15 +687,3 @@ class Solution:
         return head
        
 
-
-
-ss=[]
-a = Solution()
-s = a.threeSum([-1,0,1,2,-1,-4])
-s
-[ss.append(i) for i in s if i not in ss]
-ss
-set(s)
-
-a = [0, 1, 2, 2, 2, 5, 9, 19, 56]
-list(map(lambda x:x>5, a))
