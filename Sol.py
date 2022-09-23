@@ -687,3 +687,25 @@ class Solution:
         return head
        
 
+
+#704. Binary Search
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        half = int(len(nums) / 2)
+        index = half
+        while nums:
+            print(nums)
+            print(index)
+            if target > nums[half]:
+                nums = nums[(half+1):]
+                half = int(len(nums) / 2)
+                index = index + half
+            elif target < nums[half]:
+                nums = nums[:half]
+                half = int(len(nums) / 2)
+                index = index - half
+            else:
+                return index
+        return -1
+
+
