@@ -847,3 +847,36 @@ class Solution:
             ans += check
         return ans
 
+
+
+#17. Letter Combinations of a Phone Number
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        myDict = {}
+        repTimes = [3,3,3,3,3,4,3,4]
+        for i, v in enumerate(["abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"]):
+            myDict[str(i+2)] = v
+
+        times, n = 1, len(digits)
+        for i in range(n):
+            times *= repTimes[int(digits[i]) - 2]
+        
+        result = []
+        times2 = 1
+        for i in range(n):
+            ans = []
+            times = int(times/repTimes[int(digits[i]) - 2])
+            for s in myDict[digits[i]]:
+                for c in s:
+                    ans += c*times
+            ans += ans * times2
+            times2 = int(times2 * times)
+            if result:
+                for i in range(len(result)):
+                    result[i] = result[i] + ans[i]
+            else:
+                result = ans
+        return result
+
+  
+                
