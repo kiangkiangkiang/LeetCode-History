@@ -904,4 +904,23 @@ class Solution:
 
 
 
-        
+#20. Valid Parentheses
+class Solution:
+    def isValid(self, s: str) -> bool:
+        myDict = {"(": ")", "[": "]", "{": "}"}
+        s = list(s)
+        l = []
+        while s:
+            if s[0] in myDict:
+                l.append(s.pop(0))
+            else:
+                try:
+                    if s[0] == myDict[l[-1]]:
+                        l.pop()
+                        s.pop(0)
+                    else:
+                        return False
+                except:
+                    return False
+        return False if l else True
+  
