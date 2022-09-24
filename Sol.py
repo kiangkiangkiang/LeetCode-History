@@ -483,6 +483,7 @@ class MyStack(object):
 #21. Merge Two Sorted Lists
 from collections import deque
 import enum
+import xxlimited
 
 
 class Solution(object):
@@ -814,4 +815,13 @@ class Solution:
         return [minimum, maximum, mean, float(median), float(mode)]
 
    
-   
+
+#977. Squares of a Sorted Array
+class Solution:
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        return sorted(list(map(lambda x: x**2, nums)))
+
+        
+        
+
+
