@@ -828,3 +828,22 @@ class Solution:
     def rotate(self, nums: List[int], k: int) -> None:
         [nums.insert(0, nums.pop()) for i in range(k)]
         
+
+
+#14. Longest Common Prefix
+class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+
+        ans = ""
+        times = min([len(i) for i in strs])
+        for word in range(times):
+            check = ""
+            for s in strs:
+                if check != "":
+                    if s[word] != check:
+                        return ans
+                else:
+                    check = s[word]
+            ans += check
+        return ans
+
