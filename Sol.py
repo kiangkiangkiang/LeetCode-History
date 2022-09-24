@@ -819,9 +819,12 @@ class Solution:
 #977. Squares of a Sorted Array
 class Solution:
     def sortedSquares(self, nums: List[int]) -> List[int]:
-        return sorted(list(map(lambda x: x**2, nums)))
+        return sorted(map(lambda x: x**2, nums))
 
+
+
+#189. Rotate Array
+class Solution:
+    def rotate(self, nums: List[int], k: int) -> None:
+        [nums.insert(0, nums.pop()) for i in range(k)]
         
-        
-
-
