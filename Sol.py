@@ -924,3 +924,16 @@ class Solution:
                     return False
         return False if l else True
   
+
+
+#28. Find the Index of the First Occurrence in a String
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        n = len(haystack)
+        m = len(needle) 
+        for i in range(n - m + 1):
+            if haystack[i:(i+m)] == needle:
+                return i
+            
+
+
