@@ -879,4 +879,29 @@ class Solution:
         return result
 
   
-                
+
+#19. Remove Nth Node From End of List
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:   
+        c = head
+        total = 0
+        while c:
+            total += 1
+            c = c.next
+        if total == n:
+            return head.next
+        remove = total - n
+        c, now, prev = head, 0, head
+        while c:
+            if now == remove:
+                prev.next = c.next
+                break
+            else:
+                prev = c
+                c = c.next
+                now += 1
+        return head
+
+
+
+        
