@@ -948,5 +948,48 @@ class Solution:
                 i += 1
         return len(nums)
 
+
+
+#27. Remove Element
+class Solution:
+    def removeElement(self, nums: List[int], val: int) -> int:
+        i = 0
+        while i < len(nums):
+            if nums[i] == val:
+                nums.pop(i)
+            else:
+                i += 1
             
+                
         
+        
+#(not finished)
+#98. Validate Binary Search Tree    
+class Solution:
+    def isValidBST(self, root: Optional[TreeNode], l = None, r = None) -> bool:
+        if l:
+            if root.val > l: l = root.val 
+            if root.val < r: r = root.val
+        else:
+            l = root.val
+            r = root.val
+
+        if root.left and root.right:
+            if root.left.val < root.val < root.right.val:
+                return self.isValidBST(root.left) and self.isValidBST(root.right) 
+            else:
+                return False
+        elif root.left and not root.right:
+            if root.left.val < root.val:
+                return self.isValidBST(root.left)
+            else:
+                return False
+        elif not root.left and root.right:
+            if root.val < root.right.val:
+                return self.isValidBST(root.right)
+            else:
+                return False
+        else:
+            return True
+        
+
