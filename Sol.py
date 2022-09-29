@@ -991,6 +991,22 @@ class Solution:
         nums.sort()
 
 
+#(not finished)
+#46. Permutations
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        ans = []
+        n = len(nums)
+        def helper(myList):
+            if len(myList) == 1:
+                return myList
+        
+            for i in range(len(myList)):
+                tmp = myList[i]
+                myList.pop(i)
+                ans.append([tmp] + helper(myList[0:i] + myList[i+1:]))
+        return ans
+        
 
 #(not finished)
 #98. Validate Binary Search Tree    
