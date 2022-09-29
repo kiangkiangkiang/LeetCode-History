@@ -960,9 +960,38 @@ class Solution:
             else:
                 i += 1
             
-                
-        
-        
+
+
+#31. Next Permutation
+class Solution:
+    def nextPermutation(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        domain = sorted(set(nums))
+        sub_nums = []
+        n = len(nums)
+        for i in reversed(range(n)):
+            if i == n:
+                sub_nums.append(nums[i])
+            else:
+                tmp = list(filter(lambda x:nums[i] < x, sub_nums))
+                if tmp != []:
+                    #oK
+                    tmp.sort() #tmp[0] is what i need
+                    sub_nums.pop(sub_nums.index(tmp[0]))
+                    sub_nums.append(nums[i])
+                    sub_nums.sort()
+                    nums[i] = tmp[0]
+                    for u, j in enumerate(range(i+1, n)):
+                        nums[j] = sub_nums[u]
+                    return
+                else:
+                    sub_nums.append(nums[i])
+        nums.sort()
+
+
+
 #(not finished)
 #98. Validate Binary Search Tree    
 class Solution:
