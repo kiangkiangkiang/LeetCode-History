@@ -991,20 +991,28 @@ class Solution:
         nums.sort()
 
 
+
+#136. Single Number
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        nums = Counter(nums)
+        for k, v in nums.items():
+            if v == 1:
+                return k
+        
+
 #(not finished)
 #46. Permutations
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
         ans = []
-        n = len(nums)
         def helper(myList):
             if len(myList) == 1:
                 return myList
         
             for i in range(len(myList)):
-                tmp = myList[i]
-                myList.pop(i)
-                ans.append([tmp] + helper(myList[0:i] + myList[i+1:]))
+                ans.append([myList[i]] + helper(myList[0:i] + myList[i+1:]))
+        helper(nums)
         return ans
         
 
@@ -1037,4 +1045,5 @@ class Solution:
         else:
             return True
         
+
 
