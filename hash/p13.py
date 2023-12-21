@@ -10,11 +10,6 @@ M             1000
 
 
 
-
-
-
-
-
 """
 
 
@@ -34,24 +29,19 @@ class Solution:
         "M": 1000,
     }
 
-    def add(self, s):
+    def romanToInt(self, s: str) -> int:
+        prev_c = ""
         sum = 0
-        for c in reversed(s):
-            if c in self.reduce_dict:
+        for c in s[::-1]:
+            if prev_c != "" and self.roman_to_int[prev_c] > self.roman_to_int[c] and c in self.reduce_dict:
                 sum -= self.roman_to_int[c]
             else:
                 sum += self.roman_to_int[c]
+            prev_c = c
         return sum
 
-    def romanToInt(self, s: str) -> int:
-        split_index = s.find("I")
-        left_s = s[:split_index]
-        right_s = s[split_index:]
-        right_sum = self.add(right_s[1:]) - 1 if right_s[-1] != "I" else len(right_s)
-        return right_sum + self.add(left_s)
 
-
-input = "MCMXCIV"
+input = "III"
 a = Solution()
 ans = a.romanToInt(input)
 print(ans)
