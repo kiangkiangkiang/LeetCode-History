@@ -11,7 +11,8 @@ class TreeNode:
 
 
 class Solution:
-    node_to_adjacent = defaultdict(set)
+    def __init__(self) -> None:
+        self.node_to_adjacent = defaultdict(set)
 
     def get_next_infect(self, infect_node: int, who_infect_me: int) -> list:
         return [i for i in self.node_to_adjacent[infect_node] if i != who_infect_me]
@@ -36,31 +37,42 @@ class Solution:
 
     def amountOfTime(self, root: Optional[TreeNode], start: int) -> int:
         self.get_adjacent(root)
+        # breakpoint()
         current_infect_list, prev_infect_list = [[start]], [[None]]
         infect_counter = 0
         while current_infect_list:
             new_prev_infect, next_infect_list = [], []
             for current_infect, prev_infect in zip(current_infect_list, prev_infect_list):
-                tmp = []
-                breakpoint()
+                # tmp = []
+                # breakpoint()
                 for c in current_infect:
                     next_infect = self.get_next_infect(infect_node=c, who_infect_me=prev_infect[0])
-                    if not next_infect:
-                        new_prev_infect.append([])
-                    else:
-                        tmp.append(c)
-                    next_infect_list.append(next_infect)
-                new_prev_infect.append(tmp)
-                print(next_infect_list)
+                    if next_infect:
+                        # tmp.append(c)
+                        new_prev_infect.append([c])
+                        next_infect_list.append(next_infect)
+                # new_prev_infect.append(tmp)
+                # print(next_infect_list)
 
             prev_infect_list = new_prev_infect
             current_infect_list = next_infect_list
             infect_counter += 1
 
-        return infect_counter
+        return infect_counter - 1
 
 
+# [2, 13, 3, null, 6, null, null, 9, 7, 19, 4, null, null, null, 10, null, null, null, 12]
 root = TreeNode(1, TreeNode(5, None, TreeNode(4, TreeNode(9), TreeNode(2))), TreeNode(3, TreeNode(10), TreeNode(6)))
+# root = TreeNode(1)
+# root = TreeNode(
+#     2,
+#     TreeNode(
+#         13,
+#         None,
+#         TreeNode(6, TreeNode(9, TreeNode(19, None, TreeNode(10, None, TreeNode(12))), TreeNode(4)), TreeNode(7)),
+#     ),
+#     TreeNode(3),
+# )
 start = 2
 
 a = Solution()
