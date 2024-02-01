@@ -22,10 +22,6 @@ from typing import List
 
 
 class Solution:
-    def heappush_max(self, heap, item):
-        heap.append(item)
-        heapq._siftdown_max(heap, 0, len(heap) - 1)
-
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
         result = [0] * len(temperatures)
         current_temperature = temperatures.pop(0)
@@ -38,22 +34,24 @@ class Solution:
             if diff_list:
                 # remove_item = []
                 n = len(diff_list)
-                for i in range(n):
-                    diff_list[i] += diff
-                    if diff_list[i] > 0:
-
                 for i in reversed(range(n)):
-                    diff_list[i] += diff
-                    if diff_list[i] > 0:
-                        # remove_item.append(i)
-                        result[locate_list[i]] = index - locate_list[i] + 1
+                    diff_list[i][0] += diff
+                    if diff_list[i][0] > 0:
+                        result[diff_list[i][1]] = index - diff_list[i][1] + 1
                         diff_list.pop(i)
-                        locate_list.pop(i)
+
+                # for i in reversed(range(n)):
+                #     diff_list[i] += diff
+                #     if diff_list[i] > 0:
+                #         # remove_item.append(i)
+                #         result[locate_list[i]] = index - locate_list[i] + 1
+                #         diff_list.pop(i)
+                #         locate_list.pop(i)
 
             if diff > 0:
                 result[index] = 1
             else:
-                self.heappush_max(diff_list, (diff, index))
+                heapq.heappush(diff_list, (diff, index))
                 # self.heappush_max(locate_list, index)
                 # diff_list.append(diff)
                 # locate_list.append(index)
