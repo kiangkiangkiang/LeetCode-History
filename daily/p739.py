@@ -1,4 +1,6 @@
+import collections
 import heapq
+from collections import Counter
 from typing import List
 
 # Given an array of integers temperatures represents the daily temperatures,
