@@ -23,14 +23,30 @@ from typing import List
 
 class Solution:
     def sequentialDigits(self, low: int, high: int) -> List[int]:
-        default_num = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        default_num = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        low_num, science_low_digits = "{:e}".format(low).split("+")
+        _, science_high_digits = "{:e}".format(high).split("+")
+        science_low_digits, science_high_digits = int(science_low_digits), int(science_high_digits)
+        low_num = int(low_num[0])
 
-        n = len(str(low))
-        possible_result = []
+        # initial
+        result = []
+        current_num = low_num
+        digits_list = list(range(science_low_digits, science_high_digits + 1))
+        while digits_list:
+            digits = digits_list.pop(0)
+            while current_num + digits <= 9:
+                current_result = int("".join(default_num[current_num : current_num + digits + 1]))
+                if current_result >= low:
+                    if current_result <= high:
+                        result.append(current_result)
+                    else:
+                        return result
+                current_num += 1
+            current_num = 1
+        return result
 
-        pass
 
-
-low, high = 1000, 13000
+low, high = 1300, 13000  # 3, 4
 a = Solution()
 print(a.sequentialDigits(low, high))
