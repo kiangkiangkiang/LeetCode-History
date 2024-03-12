@@ -79,23 +79,154 @@ class Solution:
         root = head
         history = defaultdict(list)
         history_state = []
+
+        prev = None
         while head:
-            accumulate += head.val
-            if accumulate == 0:
-                head = head.next
-                root = head
-                history = defaultdict(list)
-                history_state.append(history)
-            else:
-                if accumulate in history and history[accumulate]:
-                    history_head, index = history[accumulate].pop()
-                    history = history_state[index]
-                    head = head.next
-                    history_head.next = head
-                    root = head
+            if head.val == 0:
+                if prev:
+                    prev.next = head.next
                 else:
-                    history[head.val].append((head, index))
-                    history_state.append(history)
-                    head = head.next
+                    root = head.next
+                head = head.next
+            else:
+                prev = head
+                head = head.next
+
+            # if head.next is None:
+            #     head.next = ListNode(1)
+            #     break
+
+        head = root
+        while head:
+            # print(history.keys())
+            accumulate += head.val
+            if accumulate in history and history[accumulate]:
+                history_head, index = history[accumulate][-1]
+                history = history_state[index]
+                head = head.next
+                history_head.next = head
+            else:
+                # history[accumulate].append((head, index))
+                head = head.next
+            # history[accumulate].append((head, index))
+            # history[accumulate].append((head, index))
+            history_state.append(history.copy())
             index += 1
         return root
+
+
+class Solution:
+    def removeZeroSumSublists(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        hash_memory = {}
+        current = head
+        root = head
+        accumulate = 0
+        while current:
+            accumulate += current.val
+            if accumulate == 0:
+                root = current.next
+                hash_memory = {}
+            else:
+                hash_memory[accumulate] = current
+            current = current.next
+
+        head = root
+        accumulate = 0
+        while head:
+            accumulate += head.val
+
+            if accumulate in hash_memory:
+                head.next = hash_memory[accumulate].next
+
+            head = head.next
+        return root
+
+
+[1, 2, -1, 3, -3, -2]
+
+input = ListNode(
+    val=1,
+    next=ListNode(
+        val=3,
+        next=ListNode(
+            val=2,
+            next=ListNode(
+                val=-3,
+                next=ListNode(
+                    val=-2,
+                    next=ListNode(val=5, next=ListNode(val=5, next=ListNode(val=-5, next=ListNode(val=1, next=None)))),
+                ),
+            ),
+        ),
+    ),
+)
+# [2, 2, -2, 1, -1, -1]
+# input = ListNode(
+#     val=2,
+#     next=ListNode(
+#         val=2, next=ListNode(val=-2, next=ListNode(val=1, next=ListNode(val=-1, next=ListNode(val=-1, next=None))))
+#     ),
+# )
+# [2,-1]
+
+input = ListNode(
+    val=-4,
+    next=ListNode(
+        val=0,
+        next=ListNode(
+            val=-2,
+            next=ListNode(
+                val=-2,
+                next=ListNode(
+                    val=4,
+                    next=ListNode(
+                        val=3,
+                        next=ListNode(
+                            val=0,
+                            next=ListNode(
+                                val=5,
+                                next=ListNode(
+                                    val=4,
+                                    next=ListNode(
+                                        val=-4,
+                                        next=ListNode(
+                                            val=-3,
+                                            next=ListNode(
+                                                val=-4,
+                                                next=ListNode(
+                                                    val=0, next=ListNode(val=-3, next=ListNode(val=3, next=None))
+                                                ),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        ),
+    ),
+)
+
+
+def printer(inputs):
+    result = []
+    while inputs:
+        result.append(inputs.val)
+        inputs = inputs.next
+    return result
+
+
+[-1, -2, 0, 1, 0, 0]
+input = ListNode(val=0, next=ListNode(val=0))
+a = Solution()
+print(printer(a.removeZeroSumSublists(input)))
+# [1,2,3,-3,4]
+# [1,2,3,4]
+# [1, 2, 4]
+
+
+# [1,3,2,-3,-2,5,5,-5,1]
+# [1,5,5,-5,1]
+# [1,5,1]
