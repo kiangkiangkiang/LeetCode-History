@@ -21,6 +21,11 @@ class Solution:
         return result
 
 
+from langchain.chains import LLMChain
+from langchain.memory import ConversationBufferMemory, ConversationBufferWindowMemory
+from langchain.prompts import MessagesPlaceholder
+from langchain_openai import ChatOpenAI
+
 order = "kqep"
 s = "pekeq"
 "kqep"
