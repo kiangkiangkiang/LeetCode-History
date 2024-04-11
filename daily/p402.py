@@ -1,29 +1,35 @@
+import heapq
+
+
 class Solution:
-    def find_min(self, num, current_pointer, last_choice):
-        min_num = 10000000
-        min_pointer = -1
-        while current_pointer <= last_choice:
-
-            if int(num[current_pointer]) < min_num:
-                min_num = int(num[current_pointer])
-                min_pointer = current_pointer
-
-            current_pointer += 1
-        return str(min_num), min_pointer
-
     def removeKdigits(self, num: str, k: int) -> str:
-        total_digits = len(num) - k
-        current_pointer = 0
-        last_choice = len(num) - total_digits
         num = list(num)
-        result = []
-        while len(result) <= total_digits and last_choice < len(num):
-            min_num, min_pointer = self.find_min(num, current_pointer, last_choice)
-            result.append(min_num)
-            current_pointer = min_pointer + 1
+        total_digits = len(num) - k
+        last_choice = len(num) - total_digits
 
-            last_choice += 1
-            # print(result)
+        candidate_pool = []
+        for i, value in enumerate(num[:last_choice]):
+            heapq.heappush(candidate_pool, (int(value), i))
+
+        current_pointer = 0
+        result = []
+        while last_choice < len(num):
+            while candidate_pool and candidate_pool[0][1] < current_pointer:
+                heapq.heappop(candidate_pool)
+
+            if int(num[last_choice]) < candidate_pool[0][0]:
+                result.extend(num[last_choice:])
+                break
+            else:
+                if candidate_pool:
+                    result.append(str(candidate_pool[0][0]))
+                    current_pointer = candidate_pool[0][1] + 1
+                    heapq.heappop(candidate_pool)
+                    heapq.heappush(candidate_pool, (int(num[last_choice]), last_choice))
+                    last_choice += 1
+                else:
+                    result.extend(num[last_choice:])
+                    break
 
         final_result = ""
         for i in range(len(result)):
@@ -35,7 +41,9 @@ class Solution:
 
 num = "1432219"
 k = 3
-num = "10200"
-k = 1  # expect 200
+# num = "10200"
+# k = 1  # expect 200
+# num = "43214321"
+# k = 4  # expect "1321"
 a = Solution()
 print(a.removeKdigits(num, k))
