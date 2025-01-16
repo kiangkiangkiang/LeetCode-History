@@ -24,6 +24,13 @@ class Solution:
         return len(arr) - 1
 
 
+class Solution:
+    def findLengthOfShortestSubarray(self, arr: List[int]) -> int:
+        pass
+
+    
+    
+
 arr = [1, 2, 8, 9, 3, 10, 4, 2, 3, 5]
 # arr = [1,3,5,6,0,5,7,8,9]
 arr = [2, 2, 2, 1, 1, 1]
